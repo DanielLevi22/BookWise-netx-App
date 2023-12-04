@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-nunito',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${nunito.variable} antialiased`}>
+      <body>{children}</body>
     </html>
   )
 }
