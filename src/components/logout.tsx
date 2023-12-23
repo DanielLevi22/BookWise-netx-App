@@ -2,7 +2,7 @@ import { LogOut } from 'lucide-react'
 import { Avatar } from './avatar'
 import { buildNextAuthOptions } from '@/app/api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth'
-
+import { ButtonSigOut } from './buttonsigout'
 const authOptions = buildNextAuthOptions()
 export async function Logout() {
   const session = await getServerSession(authOptions)
@@ -17,7 +17,7 @@ export async function Logout() {
         <div className="flex w-full  items-center gap-3">
           <Avatar url={session?.user.avatar_url ?? ''} />
           <span>{user}</span>
-          <LogOut className="h-5 w-5 text-red-500" />
+          <ButtonSigOut />
         </div>
       ) : (
         <>

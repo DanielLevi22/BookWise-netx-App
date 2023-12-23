@@ -1,9 +1,18 @@
+import { recentAvaliable } from '@/@type/recents-avaliables'
+import { api } from '@/app/lib/api'
 import { Article } from '@/components/article'
 import { Card } from '@/components/card'
 import { Sidebar } from '@/components/sidebar'
 import { LineChart } from 'lucide-react'
 
-export default function Home() {
+async function getRecentAvaliables(): Promise<recentAvaliable[]> {
+  const response = await api('/recent-reviews')
+
+  const data = await response.json()
+
+  return data
+}
+export default async function Home() {
   return (
     <main className="m-auto flex w-[1440px] ">
       <Sidebar />
