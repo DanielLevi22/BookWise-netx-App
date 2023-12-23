@@ -1,5 +1,6 @@
-import { LineChart, LogOut } from 'lucide-react'
+import { LineChart } from 'lucide-react'
 import Image from 'next/image'
+import { Logout } from './logout'
 
 export function Sidebar() {
   return (
@@ -22,10 +23,7 @@ export function Sidebar() {
         Explorar
       </div>
 
-      <div className="mb-6 mt-auto flex items-center gap-3 font-bold text-gray-200">
-        Fazer login
-        <LogOut className="h-5 w-5 text-green-100" />
-      </div>
+      <Logout />
     </aside>
   )
 }
