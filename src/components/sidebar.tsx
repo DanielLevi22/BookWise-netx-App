@@ -1,4 +1,4 @@
-import { LineChart } from 'lucide-react'
+import { Glasses, LineChart } from 'lucide-react'
 import Image from 'next/image'
 import { Logout } from './logout'
 
@@ -19,7 +19,7 @@ export function Sidebar() {
       </div>
 
       <div className="mt-4 flex items-center gap-3 text-gray-400">
-        <LineChart className="h-6 w-6 text-gray-400 hover:text-gray-100" />
+        <Glasses className="h-6 w-6 text-gray-400 hover:text-gray-100" />
         Explorar
       </div>
 

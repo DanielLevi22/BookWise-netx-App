@@ -2,45 +2,58 @@ import { Star } from 'lucide-react'
 import { Profile } from './profile'
 import Image from 'next/image'
 import { recentAvaliable } from '@/@type/recents-avaliables'
-
+import { clippingUrl } from '@/utils/clippingurl'
+import { starInRating } from '@/utils/starinrating'
 export async function Card({
-  avatar_url,
-  book_author,
-  book_cover_url,
-  book_name,
-  book_summary,
-  created_at,
-  rating,
+  avatarUrl,
+  bookAuthor,
+  bookCoverUrl,
+  bookName,
+  bookSummary,
+  createdAt,
+  rate,
   username,
 }: recentAvaliable) {
+  const totalRating = starInRating(rate)
   return (
     <div className="rounded-lg bg-gray-700 p-6">
       <div className=" flex items-start justify-between">
-        <Profile />
+        <Profile
+          avatarUrl={avatarUrl}
+          createdAt={createdAt}
+          username={username}
+        />
         <div className="flex items-center gap-1">
-          <Star className=" h-4 w-4 text-purple-200" />
-          <Star className=" h-4 w-4 text-purple-200" />
-          <Star className=" h-4 w-4 text-purple-200" />
-          <Star className=" h-4 w-4 text-purple-200" />
-          <Star className=" h-4 w-4 text-purple-200" />
+          {totalRating.map((item, index) => {
+            if (item === true)
+              return (
+                <Star
+                  className=" h-4 w-4 fill-purple-100 text-purple-100"
+                  key={index}
+                />
+              )
+            return <Star className=" h-4 w-4 text-purple-100" key={index} />
+          })}
         </div>
       </div>
 
-      <div className="mt-8 flex gap-5">
-        <div className="h-[108px] w-[152px]">
+      <div className="relative mt-8 flex gap-5">
+        <div className="shrink-0">
           <Image
-            src={book_cover_url}
+            src={clippingUrl(bookCoverUrl)}
             alt=""
-            height={108}
-            width={152}
-            className="h-full w-full"
+            height={152}
+            width={108}
+            className="h-[152px] w-[108px] "
             quality={100}
           />
         </div>
-        <div className="flex flex-col">
-          <span className="text-gray-100">{book_name}</span>
-          <span className="text-gray-400">{book_author}</span>
-          <span className="text-sm text-gray-300">{book_summary}</span>
+        <div className=" flex flex-col ">
+          <span className="text-base text-gray-100">{bookName}</span>
+          <span className="text-sm text-gray-400">{bookAuthor}</span>
+          <span className="mt-5 line-clamp-4 text-sm text-gray-300 ">
+            {bookSummary}
+          </span>
         </div>
       </div>
     </div>

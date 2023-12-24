@@ -16,7 +16,6 @@ export function buildNextAuthOptions(): NextAuthOptions {
         clientId: env.GITHUB_CLIENT_ID,
         clientSecret: env.GITHUB_CLIENT_SECRET,
         profile(profile: GithubProfile) {
-          console.log('Profile Git: ', profile)
           return {
             id: String(profile.id),
             name: profile.name!,
@@ -27,7 +26,6 @@ export function buildNextAuthOptions(): NextAuthOptions {
       }),
       GoogleProvider({
         profile(profile: GoogleProfile) {
-          console.log('Profile Google: ', profile)
           return {
             id: profile.sub,
             name: profile.name,

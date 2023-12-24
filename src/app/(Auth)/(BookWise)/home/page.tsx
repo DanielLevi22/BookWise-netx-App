@@ -6,17 +6,19 @@ import { Sidebar } from '@/components/sidebar'
 import { LineChart } from 'lucide-react'
 
 async function getRecentAvaliables(): Promise<recentAvaliable[]> {
-  const response = await api('/recent-reviews')
+  const response = await api('/recent-reviews', {
+    cache: 'force-cache',
+  })
 
   const data = await response.json()
 
   return data
 }
 export default async function Home() {
-  return (
-    <main className="m-auto flex w-[1440px] ">
-      <Sidebar />
+  const recent = await getRecentAvaliables()
 
+  return (
+    <main>
       <div className="ml-[96px] mt-[72px]">
         <div className="flex items-center gap-2 font-bold text-gray-100">
           <LineChart className="h-6 w-6 text-green-200 " />
@@ -26,12 +28,21 @@ export default async function Home() {
         <div className="mt-12 flex gap-[100px]">
           <div className="max-w-[608px]">
             <div className="">
-              <span className="text-gray-100">Sua última leitura</span>
+              <span className="text-gray-100">Avaliações mais recentes</span>
               <div className="mt-4 space-y-3">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {recent?.map((item, index) => (
+                  <Card
+                    key={index.toString()}
+                    avatarUrl={item.avatarUrl}
+                    bookAuthor={item.bookAuthor}
+                    bookCoverUrl={item.bookCoverUrl}
+                    bookName={item.bookName}
+                    username={item.username}
+                    rate={item.rate}
+                    createdAt={item.createdAt}
+                    bookSummary={item.bookSummary}
+                  />
+                ))}
               </div>
             </div>
           </div>
