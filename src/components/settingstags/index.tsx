@@ -3,56 +3,36 @@
 import * as Tabs from '@radix-ui/react-tabs'
 import { useState } from 'react'
 import { TagItem } from './tagitem'
-
-export function Tags() {
-  const [currentTab, setCurrentTab] = useState('tab1')
-
+import { categoryBooks } from '@/@type/category-books'
+import * as ScrollArea from '@radix-ui/react-scroll-area'
+interface TagProps {
+  category: categoryBooks[]
+}
+export function Tags({ category }: TagProps) {
+  const [currentTab, setCurrentTab] = useState('Tudo')
   return (
-    <Tabs.Root value={currentTab} onValueChange={setCurrentTab}>
-      <Tabs.List className="mt-10 flex w-full items-center gap-3">
-        <TagItem
-          value="tab1"
-          title="My details"
-          isSelected={currentTab === 'tab1'}
-        />
-        <TagItem
-          value="tab2"
-          title="Profile"
-          isSelected={currentTab === 'tab2'}
-        />
-        <TagItem
-          value="tab3"
-          title="Password"
-          isSelected={currentTab === 'tab3'}
-        />
-        <TagItem value="tab4" title="Team" isSelected={currentTab === 'tab4'} />
-        <TagItem value="tab5" title="Pan" isSelected={currentTab === 'tab5'} />
-        <TagItem
-          value="tab6"
-          title="Billing"
-          isSelected={currentTab === 'tab6'}
-        />
-        <TagItem
-          value="tab7"
-          title="Email"
-          isSelected={currentTab === 'tab7'}
-        />
-        <TagItem
-          value="tab8"
-          title="Notifications"
-          isSelected={currentTab === 'tab8'}
-        />
-        <TagItem
-          value="tab9"
-          title="Integrations"
-          isSelected={currentTab === 'tab9'}
-        />
-        <TagItem
-          value="tab10"
-          title="API"
-          isSelected={currentTab === 'tab10'}
-        />
-      </Tabs.List>
+    <Tabs.Root value={currentTab} onValueChange={setCurrentTab} className="">
+      <ScrollArea.Root className="w-full" type="scroll">
+        <ScrollArea.Viewport className=" w-full overflow-x-scroll pb-2  ">
+          <Tabs.List className="mt-10 flex w-full items-center gap-3">
+            {category.map((item) => (
+              <TagItem
+                key={item.id}
+                value={item.name}
+                title={item.name}
+                isSelected={currentTab === item.name}
+              />
+            ))}
+          </Tabs.List>
+        </ScrollArea.Viewport>
+
+        <ScrollArea.Scrollbar
+          className="flex h-0.5 translate-y-1.5 touch-none flex-col bg-zinc-100"
+          orientation="horizontal"
+        >
+          <ScrollArea.Thumb className="relative flex-1 rounded-lg bg-zinc-300" />
+        </ScrollArea.Scrollbar>
+      </ScrollArea.Root>
     </Tabs.Root>
   )
 }

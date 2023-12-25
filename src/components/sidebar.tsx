@@ -4,7 +4,7 @@ import { Logout } from './logout'
 
 export function Sidebar() {
   return (
-    <aside className="ml-5 mt-5 flex h-screen w-[232px] flex-col items-center rounded-xl bg-gradient-to-t from-gray-800 to-purple-200">
+    <aside className="ml-5 mt-5 flex h-screen w-[232px]  flex-col items-center rounded-xl bg-gradient-to-t from-gray-800 to-purple-200">
       <Image
         src="/logo.svg"
         alt="logo"
