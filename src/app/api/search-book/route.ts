@@ -12,26 +12,103 @@ export async function GET(
   const query = z.string().parse(searchParams.get('q'))
 
   let books = []
-  if (query === 'Tudo') {
-    books = await prisma.book.findMany()
-  }
 
-  const categories = await prisma.category.findMany()
-  console.log(categories)
-  if (categories.some((item) => item.name === query)) {
+  if (query.toLocaleLowerCase() === 'tudo') {
+    // Buscar todos os livros com média das avaliações
     books = await prisma.book.findMany({
-      where: {
-        categories: {
-          some: {
-            category: {
-              name: query,
-            },
+      include: {
+        ratings: {
+          select: {
+            rate: true,
           },
         },
       },
     })
+
+    // Calcular a média das avaliações para cada livro
+    books = books.map((book) => ({
+      id: book.id,
+      name: book.name,
+      author: book.author,
+      summary: book.summary,
+      cover_url: book.cover_url,
+      total_pages: book.total_pages,
+      created_at: book.created_at,
+      rate: calculateAverageRating(book.ratings),
+    }))
+  } else {
+    // Buscar livros com base na consulta e incluir média das avaliações
+    books = await prisma.book.findMany({
+      where: {
+        OR: [
+          { name: { contains: query } },
+          { author: { contains: query } },
+          { summary: { contains: query } },
+        ],
+      },
+      include: {
+        ratings: {
+          select: {
+            rate: true,
+          },
+        },
+      },
+    })
+
+    // Se a consulta corresponder a uma categoria
+    const categories = await prisma.category.findMany()
+    const isCategory = categories.some(
+      (item) => item.name.toLowerCase() === query,
+    )
+
+    if (isCategory) {
+      books = await prisma.book.findMany({
+        where: {
+          categories: {
+            some: {
+              category: {
+                name: {
+                  contains: query,
+                },
+              },
+            },
+          },
+        },
+        include: {
+          ratings: {
+            select: {
+              rate: true,
+            },
+          },
+        },
+      })
+    }
+
+    // Calcular a média das avaliações para cada livro
+    books = books.map((book) => ({
+      id: book.id,
+      name: book.name,
+      author: book.author,
+      summary: book.summary,
+      cover_url: book.cover_url,
+      total_pages: book.total_pages,
+      created_at: book.created_at,
+      rate: calculateAverageRating(book.ratings),
+    }))
   }
 
-  // Caso a query não corresponda a "Tudo" ou uma categoria existente
   return Response.json(books)
+}
+
+// Função auxiliar para calcular a média das avaliações
+function calculateAverageRating(ratings) {
+  if (!ratings || ratings.length === 0) {
+    return null
+  }
+
+  const sum = ratings.reduce((total, rating) => total + rating.rate, 0)
+  const average = sum / ratings.length
+
+  // Arredonda para o inteiro mais próximo
+  return Math.round(average)
 }

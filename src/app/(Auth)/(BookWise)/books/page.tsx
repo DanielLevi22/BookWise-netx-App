@@ -12,11 +12,27 @@ async function getCategoryBooks(): Promise<categoryBooks[]> {
 
   return data
 }
-export default async function Books() {
+// async function getSearchBooks(query: string): Promise<categoryBooks[]> {
+//   const response = await api(`/search-book?=${query}`, {
+//     cache: 'no-cache',
+//   })
+//   const data = await response.json()
+
+//   return data
+// }
+export default async function Books({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string
+  }
+}) {
   const categoryBooks = await getCategoryBooks()
   if (categoryBooks) {
     categoryBooks.unshift({ id: 'asdadsad', name: 'Tudo' })
   }
+  // const query = searchParams?.query || ''
+  // const books = await getSearchBooks(query)
   return (
     <main className="w-full overflow-hidden px-[96px] py-[72px]  ">
       <div className="flex items-start justify-between">
