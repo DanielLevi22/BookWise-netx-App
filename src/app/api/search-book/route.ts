@@ -2,15 +2,11 @@ import { prisma } from '@/app/lib/prisma/prisma'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { slug: string } },
-) {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-
+export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
   const query = z.string().parse(searchParams.get('q'))
 
+  console.log('Cheguei', query)
   let books = []
 
   if (query.toLocaleLowerCase() === 'tudo') {
@@ -38,41 +34,42 @@ export async function GET(
     }))
   } else {
     // Buscar livros com base na consulta e incluir média das avaliações
-    books = await prisma.book.findMany({
-      where: {
-        OR: [
-          { name: { contains: query } },
-          { author: { contains: query } },
-          { summary: { contains: query } },
-        ],
-      },
-      include: {
-        ratings: {
-          select: {
-            rate: true,
-          },
-        },
-      },
-    })
 
-    // Se a consulta corresponder a uma categoria
+    // ...
+
     const categories = await prisma.category.findMany()
     const isCategory = categories.some(
-      (item) => item.name.toLowerCase() === query,
+      (item) => item.name.toLowerCase() === query.toLocaleLowerCase(),
     )
 
     if (isCategory) {
+      // Se a consulta corresponder a uma categoria, buscar livros por categoria
       books = await prisma.book.findMany({
         where: {
           categories: {
             some: {
               category: {
-                name: {
-                  contains: query,
-                },
+                name: query,
               },
             },
           },
+        },
+        include: {
+          ratings: {
+            select: {
+              rate: true,
+            },
+          },
+        },
+      })
+    } else {
+      // Se a consulta não for uma categoria, buscar livros por nome ou autor
+      books = await prisma.book.findMany({
+        where: {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { author: { contains: query, mode: 'insensitive' } },
+          ],
         },
         include: {
           ratings: {

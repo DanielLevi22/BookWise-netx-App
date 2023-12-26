@@ -1,5 +1,7 @@
+import { Book } from '@/@type/book'
 import { categoryBooks } from '@/@type/category-books'
 import { api } from '@/app/lib/api'
+import { CardBook } from '@/components/cardbook'
 import { Search } from '@/components/search'
 import { Tags } from '@/components/settingstags'
 import { Glasses } from 'lucide-react'
@@ -12,27 +14,29 @@ async function getCategoryBooks(): Promise<categoryBooks[]> {
 
   return data
 }
-// async function getSearchBooks(query: string): Promise<categoryBooks[]> {
-//   const response = await api(`/search-book?=${query}`, {
-//     cache: 'no-cache',
-//   })
-//   const data = await response.json()
+async function getSearchBooks(query: string): Promise<Book[]> {
+  const response = await api(`/search-book?q=${query}`, {
+    cache: 'no-cache',
+  })
+  const data = await response.json()
+  return data
+}
 
-//   return data
-// }
 export default async function Books({
   searchParams,
 }: {
   searchParams?: {
-    query?: string
+    q?: string
   }
 }) {
   const categoryBooks = await getCategoryBooks()
   if (categoryBooks) {
-    categoryBooks.unshift({ id: 'asdadsad', name: 'Tudo' })
+    categoryBooks.unshift({ id: 'dsadqydv', name: 'Tudo' })
   }
-  // const query = searchParams?.query || ''
-  // const books = await getSearchBooks(query)
+
+  const query = searchParams?.q || ''
+  const books = await getSearchBooks(query)
+
   return (
     <main className="w-full overflow-hidden px-[96px] py-[72px]  ">
       <div className="flex items-start justify-between">
@@ -46,6 +50,18 @@ export default async function Books({
         <div className="overflow-hidden">
           <Tags category={categoryBooks} />
         </div>
+      </div>
+      <div className=" mt-12 grid auto-rows-[184px] grid-cols-3 gap-5">
+        {books?.map((item) => (
+          <CardBook
+            cardVariant="secondary"
+            key={item.id}
+            author={item.author}
+            cover_url={item.cover_url}
+            name={item.name}
+            rate={item.rate}
+          />
+        ))}
       </div>
     </main>
   )

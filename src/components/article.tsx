@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardArticle } from './CardArticle'
+import { CardBook } from './cardbook'
 import { Book } from '@/@type/book'
 import { api } from '@/app/lib/api'
 async function getBooksPopular(): Promise<Book[]> {
@@ -24,7 +24,8 @@ export async function Article() {
       <div className="mt-4 space-y-3">
         {thefourmostpopularbooks.map((item) => {
           return (
-            <CardArticle
+            <CardBook
+              cardVariant="primary"
               key={String(item.id)}
               author={item.author}
               cover_url={item.cover_url}
