@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
   const query = z.string().parse(searchParams.get('q'))
 
-  console.log('Cheguei', query)
   let books = []
 
   if (query.toLocaleLowerCase() === 'tudo') {

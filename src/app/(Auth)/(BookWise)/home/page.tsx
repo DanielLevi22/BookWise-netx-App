@@ -2,7 +2,6 @@ import { recentAvaliable } from '@/@type/recents-avaliables'
 import { api } from '@/app/lib/api'
 import { Article } from '@/components/article'
 import { Card } from '@/components/card'
-import { Sidebar } from '@/components/sidebar'
 import { LineChart } from 'lucide-react'
 
 async function getRecentAvaliables(): Promise<recentAvaliable[]> {
@@ -19,7 +18,7 @@ export default async function Home() {
 
   return (
     <main>
-      <div className="ml-[96px] mt-[72px]">
+      <div className=" w-full flex-1 p-[72px]">
         <div className="flex items-center gap-2 font-bold text-gray-100">
           <LineChart className="h-6 w-6 text-green-200 " />
           Início

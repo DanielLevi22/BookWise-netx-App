@@ -38,7 +38,7 @@ export default async function Books({
   const books = await getSearchBooks(query)
 
   return (
-    <main className="w-full overflow-hidden px-[96px] py-[72px]  ">
+    <main className=" w-full flex-1  overflow-hidden p-[72px]">
       <div className="flex items-start justify-between">
         <div className="flex items-center justify-center gap-3">
           <Glasses className="h-8 w-8 text-green-100" />
