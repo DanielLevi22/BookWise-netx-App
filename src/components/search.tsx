@@ -22,7 +22,7 @@ export function Search() {
       <input
         type="text"
         placeholder="Buscar livro ou autor"
-        className=" w-[365px] border-none bg-transparent text-gray-200 caret-green-100  outline-none placeholder:text-sm placeholder:text-gray-400"
+        className=" w-full border-none bg-transparent text-gray-200 caret-green-100  outline-none placeholder:text-sm placeholder:text-gray-400"
         onChange={(e) => {
           handleSearch(e.target.value)
         }}

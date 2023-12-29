@@ -25,8 +25,8 @@ export async function CardProfile({
 }: cardProfile) {
   return (
     <div>
-      <span className="text-sm text-gray-300">{createdAt}</span>
-      <div className="rounded-lg bg-gray-700 p-6 text-left ">
+      <span className="mb-1 block text-sm text-gray-300">{createdAt}</span>
+      <div className="rounded-lg bg-gray-700 p-6 text-left">
         <CardBook
           author={author}
           cardVariant="secondary"
