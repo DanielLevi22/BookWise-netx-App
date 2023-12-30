@@ -1,8 +1,6 @@
-import { recentAvaliable } from '@/@type/recents-avaliables'
 import { api } from '@/app/lib/api'
 import { CardProfile } from '@/components/cardprofile'
 import { BookA, BookOpen, Bookmark, LibraryBig, User } from 'lucide-react'
-import { getServerSession } from 'next-auth'
 import { buildNextAuthOptions } from '@/app/api/auth/[...nextauth]/options'
 import { searchProfile } from '@/@type/searchprofile'
 import { Avatar } from '@/components/avatar'
@@ -76,7 +74,7 @@ export default async function Profile({
                 ))}
                 {profile.user.ratedBooks.length === 0 && (
                   <div className="w-[608px] text-center text-2xl text-gray-100">
-                    Livro ou Autor não encontrado.
+                    Avaliação não encontrada
                   </div>
                 )}
               </div>
@@ -84,7 +82,10 @@ export default async function Profile({
           </div>
           <div>
             <article className="flex flex-col items-center rounded-lg  px-14 py-5 shadow shadow-green-100">
-              <Avatar url={profile?.user.avatar_url ?? ''} />
+              <Avatar
+                url={profile?.user.avatar_url ?? ''}
+                AvatarVariant="secondary"
+              />
               <span
                 className="mt-5 text-2xl font-bold text-gray-100
               "

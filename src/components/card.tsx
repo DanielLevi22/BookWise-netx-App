@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { recentAvaliable } from '@/@type/recents-avaliables'
 import { clippingUrl } from '@/utils/clippingurl'
 import { starInRating } from '@/utils/starinrating'
+import Link from 'next/link'
 export async function Card({
   avatarUrl,
   bookAuthor,
@@ -13,16 +14,19 @@ export async function Card({
   createdAt,
   rate,
   username,
+  userId,
 }: recentAvaliable) {
   const totalRating = starInRating(rate)
   return (
     <div className="rounded-lg bg-gray-700 p-6">
       <div className=" flex items-start justify-between">
-        <Profile
-          avatarUrl={avatarUrl}
-          createdAt={createdAt}
-          username={username}
-        />
+        <Link href={`/profile/${userId}`}>
+          <Profile
+            avatarUrl={avatarUrl}
+            createdAt={createdAt}
+            username={username}
+          />
+        </Link>
         <div className="flex items-center gap-1">
           {totalRating.map((item, index) => {
             if (item === true)

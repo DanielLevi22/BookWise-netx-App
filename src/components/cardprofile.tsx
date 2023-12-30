@@ -1,9 +1,3 @@
-import { Star } from 'lucide-react'
-import { Profile } from './profile'
-import Image from 'next/image'
-import { recentAvaliable } from '@/@type/recents-avaliables'
-import { clippingUrl } from '@/utils/clippingurl'
-import { starInRating } from '@/utils/starinrating'
 import { CardBook } from './cardbook'
 import { compareDate } from '@/utils/compareDate'
 

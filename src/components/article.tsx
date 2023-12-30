@@ -24,14 +24,18 @@ export async function Article() {
       <div className="mt-4 space-y-3">
         {thefourmostpopularbooks.map((item) => {
           return (
-            <CardBook
-              cardVariant="primary"
+            <div
               key={String(item.id)}
-              author={item.author}
-              cover_url={item.cover_url}
-              name={item.name}
-              rate={item.rate}
-            />
+              className="rounded-lg bg-gray-700 px-5 py-4"
+            >
+              <CardBook
+                cardVariant="primary"
+                author={item.author}
+                cover_url={item.cover_url}
+                name={item.name}
+                rate={item.rate}
+              />
+            </div>
           )
         })}
       </div>

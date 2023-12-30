@@ -20,7 +20,7 @@ export function CardBook({
 }: cardBookProps) {
   const totalRating = starInRating(rate)
   return (
-    <div className="flex gap-5 rounded-lg bg-gray-700 px-5 py-[18px]">
+    <div className="flex gap-5 rounded-lg bg-gray-700 ">
       <Image
         src={clippingUrl(coverUrl)}
         alt=""
@@ -32,15 +32,15 @@ export function CardBook({
             : 'max-h-[152px]  max-w-[108px]'
         } `}
       />
-      <div>
+      <div className="flex flex-col">
         <h1 className="text-gray-100">{name}</h1>
         <span className="mt-1 block text-gray-400">{author}</span>
-        <div className="mt-5 flex items-center">
+        <div className="mt-auto flex items-center">
           {totalRating.map((item, index) => {
             if (item === true)
               return (
                 <Star
-                  className=" h-4 w-4 fill-purple-100 text-purple-100"
+                  className="  h-4 w-4 fill-purple-100 text-purple-100"
                   key={index}
                 />
               )

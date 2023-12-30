@@ -53,14 +53,15 @@ export default async function Books({
       </div>
       <div className=" mt-12 grid auto-rows-[184px] grid-cols-3 gap-5">
         {books?.map((item) => (
-          <CardBook
-            cardVariant="secondary"
-            key={item.id}
-            author={item.author}
-            cover_url={item.cover_url}
-            name={item.name}
-            rate={item.rate}
-          />
+          <div key={item.id} className="rounded-lg bg-gray-700 px-5 py-4">
+            <CardBook
+              cardVariant="secondary"
+              author={item.author}
+              cover_url={item.cover_url}
+              name={item.name}
+              rate={item.rate}
+            />
+          </div>
         ))}
       </div>
     </main>

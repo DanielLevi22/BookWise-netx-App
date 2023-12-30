@@ -1,4 +1,5 @@
 export interface recentAvaliable {
+  userId: string
   username: string
   rate: number
   avatarUrl: string

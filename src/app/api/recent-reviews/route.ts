@@ -13,10 +13,6 @@ export async function GET() {
         where: {
           id: review.user_id,
         },
-        select: {
-          name: true,
-          avatar_url: true,
-        },
       })
 
       const book = await prisma.book.findUnique({
@@ -31,16 +27,19 @@ export async function GET() {
         },
       })
 
-      recentReviewsInfo.push({
-        username: user?.name,
-        rate: review.rate,
-        avatarUrl: user?.avatar_url,
-        bookName: book?.name,
-        bookAuthor: book?.author,
-        bookSummary: book?.summary,
-        bookCoverUrl: book?.cover_url,
-        createdAt: review.created_at,
-      })
+      if (user?.id) {
+        recentReviewsInfo.push({
+          userId: user.id,
+          username: user.name,
+          rate: review.rate,
+          avatarUrl: user.avatar_url,
+          bookName: book?.name,
+          bookAuthor: book?.author,
+          bookSummary: book?.summary,
+          bookCoverUrl: book?.cover_url,
+          createdAt: review.created_at,
+        })
+      }
     }
   }
 

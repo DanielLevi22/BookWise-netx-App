@@ -1,8 +1,10 @@
 import { LogOut } from 'lucide-react'
 import { Avatar } from './avatar'
+import * as Dialog from '@radix-ui/react-dialog'
 import { buildNextAuthOptions } from '@/app/api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth'
 import { ButtonSigOut } from './buttonsigout'
+import { SignInModal } from './DialogSingnin'
 const authOptions = buildNextAuthOptions()
 export async function Logout() {
   const session = await getServerSession(authOptions)
@@ -21,8 +23,7 @@ export async function Logout() {
         </div>
       ) : (
         <>
-          Fazer login
-          <LogOut className="h-5 w-5 text-green-100" />
+          <SignInModal />
         </>
       )}
     </div>

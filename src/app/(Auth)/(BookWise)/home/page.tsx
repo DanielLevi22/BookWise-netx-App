@@ -32,6 +32,7 @@ export default async function Home() {
                 {recent?.map((item, index) => (
                   <Card
                     key={index.toString()}
+                    userId={item.userId}
                     avatarUrl={item.avatarUrl}
                     bookAuthor={item.bookAuthor}
                     bookCoverUrl={item.bookCoverUrl}

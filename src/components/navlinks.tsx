@@ -24,7 +24,7 @@ export function NavLink() {
     if (session?.user.id) {
       setUrl([
         ...url,
-        { name: 'profile', href: `profile/${session.user.id}`, icon: User },
+        { name: 'profile', href: `/profile/${session?.user.id}`, icon: User },
       ])
     }
   }
