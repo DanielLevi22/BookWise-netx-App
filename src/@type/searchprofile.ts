@@ -1,4 +1,4 @@
-interface Book {
+interface filteredBooks {
   id: string
   name: string
   author: string
@@ -23,7 +23,7 @@ interface User {
     rate: number
     description: string
     created_at: string
-    book: Book
+    book: filteredBooks
   }[]
 }
 
@@ -33,7 +33,7 @@ export interface searchProfile {
     name: string
     avatar_url: string
     created_at: string
-    ratedBooks: Book[]
+    ratedBooks: filteredBooks[]
   }
   totalBooksRated: number
   totalAuthorsRead: number

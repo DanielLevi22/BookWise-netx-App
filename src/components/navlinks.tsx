@@ -1,24 +1,41 @@
 'use client'
 import { clsx } from 'clsx'
 import { Glasses, LineChart, User } from 'lucide-react'
+import { getSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const links = [
   { name: 'Home', href: '/home', icon: LineChart },
-  {
-    name: 'books',
-    href: '/books',
-    icon: Glasses,
-  },
-  { name: 'profile', href: '/profile', icon: User },
+  { name: 'books', href: '/books', icon: Glasses },
 ]
+
+interface linkProps {
+  name: string
+  href: string
+  icon: React.ElementType
+}
 export function NavLink() {
+  const [url, setUrl] = useState<linkProps[]>(links)
+
+  async function getUseSession() {
+    const session = await getSession()
+    if (session?.user.id) {
+      setUrl([
+        ...url,
+        { name: 'profile', href: `profile/${session.user.id}`, icon: User },
+      ])
+    }
+  }
   const pathname = usePathname()
+  useEffect(() => {
+    getUseSession()
+  }, [])
 
   return (
     <>
-      {links.map((link) => {
+      {url.map((link) => {
         const LinkIcon = link.icon
         return (
           <Link

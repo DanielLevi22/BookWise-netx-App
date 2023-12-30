@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { Avatar } from './avatar'
+import { compareDate } from '@/utils/compareDate'
 
 interface ProfileProps {
   avatarUrl: string
@@ -7,18 +8,7 @@ interface ProfileProps {
   createdAt: string
 }
 export function Profile({ avatarUrl, createdAt, username }: ProfileProps) {
-  const initialDate = dayjs(createdAt)
-  const currentDate = dayjs()
-  const differenceInDays = currentDate.diff(initialDate, 'day')
-
-  let date = ''
-  if (differenceInDays === 0) {
-    date = 'Hoje'
-  } else if (differenceInDays === 1) {
-    date = `Ontem`
-  } else {
-    date = `Há ${differenceInDays} dias`
-  }
+  const date = compareDate(createdAt)
   return (
     <div className="flex gap-4">
       <Avatar url={avatarUrl} />
