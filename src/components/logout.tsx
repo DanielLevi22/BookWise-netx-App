@@ -1,6 +1,4 @@
-import { LogOut } from 'lucide-react'
 import { Avatar } from './avatar'
-import * as Dialog from '@radix-ui/react-dialog'
 import { buildNextAuthOptions } from '@/app/api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth'
 import { ButtonSigOut } from './buttonsigout'

@@ -1,7 +1,7 @@
 import { Book } from '@/@type/book'
 import { categoryBooks } from '@/@type/category-books'
 import { api } from '@/app/lib/api'
-import { CardBook } from '@/components/cardbook'
+import { AvailableBook } from '@/components/availablebook'
 import { Search } from '@/components/search'
 import { Tags } from '@/components/settingstags'
 import { Glasses } from 'lucide-react'
@@ -53,15 +53,13 @@ export default async function Books({
       </div>
       <div className=" mt-12 grid auto-rows-[184px] grid-cols-3 gap-5">
         {books?.map((item) => (
-          <div key={item.id} className="rounded-lg bg-gray-700 px-5 py-4">
-            <CardBook
-              cardVariant="secondary"
-              author={item.author}
-              cover_url={item.cover_url}
-              name={item.name}
-              rate={item.rate}
-            />
-          </div>
+          <AvailableBook
+            key={item.id}
+            author={item.author}
+            cover_url={item.cover_url}
+            name={item.name}
+            rate={item.rate}
+          />
         ))}
       </div>
     </main>
