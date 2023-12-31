@@ -1,11 +1,14 @@
 'use client'
 import * as Dialog from '@radix-ui/react-dialog'
-import { BookA, BookOpen, Bookmark, X } from 'lucide-react'
+import { BookOpen, Bookmark, X } from 'lucide-react'
 import { CardBook } from './cardbook'
 import { AvailablesBooks } from '@/@type/availablebook'
 import axios from 'axios'
 import { useState } from 'react'
 import { CardAvailable } from './cardAvailable'
+import { CreateAvailable } from './createavailable'
+import { useSession } from 'next-auth/react'
+import { SignInModal } from './DialogSingnin'
 
 interface availableBookProps {
   id: string
@@ -14,7 +17,6 @@ interface availableBookProps {
   name: string
   rate: number
 }
-
 export function AvailableBook({
   id,
   author,
@@ -23,11 +25,21 @@ export function AvailableBook({
   rate,
 }: availableBookProps) {
   const [available, setAvailable] = useState<AvailablesBooks>()
+  const [isOpen, setIsOpen] = useState(false)
+  const { data: session, status } = useSession()
+
   async function handleSearchAvaliableBook(id: string) {
     const response = await axios.get(
       `http://localhost:3000/api/available-books/${id}`,
     )
     setAvailable(response.data)
+  }
+  console.log(status)
+
+  function openCreatedForm() {
+    if (status === 'authenticated') {
+      setIsOpen(!isOpen)
+    }
   }
   return (
     <Dialog.Root>
@@ -48,9 +60,9 @@ export function AvailableBook({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-y-0 right-0 h-screen w-[660px] bg-black/75" />
 
-        <Dialog.Content className="fixed bottom-0 right-0 top-16 h-screen min-w-[564px] -translate-x-12 ">
-          <div className="relative">
-            <div className="absolute -right-12 -top-8">
+        <Dialog.Content className="fixed bottom-0 right-0 top-5 h-screen min-w-[564px] -translate-x-8 overflow-y-auto pb-10 pr-2 scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-gray-600">
+          <div className="relative  h-6">
+            <div className="absolute -top-1 right-0">
               <Dialog.Close>
                 <X className="h-6 w-6 text-gray-400" />
               </Dialog.Close>
@@ -95,10 +107,19 @@ export function AvailableBook({
 
           <div className="mb-5 mt-9 flex items-center justify-between">
             <span className="text-sm text-gray-300 ">Avaliações</span>
-            <button className="text-base font-bold text-purple-100">
-              Avaliar
-            </button>
+            {status === 'unauthenticated' && (
+              <SignInModal ButtonName="Avaliar" />
+            )}
+            {status === 'authenticated' && (
+              <button
+                onClick={openCreatedForm}
+                className="text-base font-bold text-purple-100"
+              >
+                {isOpen === false ? 'Avaliar' : 'Cancelar Avaliação'}
+              </button>
+            )}
           </div>
+          {status === 'authenticated' && isOpen && <CreateAvailable />}
           {available?.ratings.map((item) => (
             <CardAvailable
               key={item.userId}

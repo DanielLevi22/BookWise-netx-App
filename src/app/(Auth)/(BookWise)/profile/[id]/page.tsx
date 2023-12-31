@@ -101,25 +101,25 @@ export default async function Profile({
                     <span className="font-bold text-gray-200">
                       {profile?.totalPagesRead}
                     </span>
-                    <span className="text-sm text-gray-300">
-                      Livros avaliados
-                    </span>
+                    <span className="text-sm text-gray-300">Páginas lidas</span>
                   </div>
                 </div>
                 <div className=" flex gap-5">
                   <LibraryBig className="h-8 w-8 text-green-100" />
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-200">
-                      {profile?.totalPagesRead}
+                      {profile?.totalBooksRated}
                     </span>
-                    <span className="text-sm text-gray-300">Autores lidos</span>
+                    <span className="text-sm text-gray-300">
+                      Livros avaliados
+                    </span>
                   </div>
                 </div>
                 <div className="flex gap-5">
                   <BookA className="h-8 w-8 text-green-100" />
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-200">
-                      {profile?.totalPagesRead}
+                      {profile?.totalAuthorsRead}
                     </span>
                     <span className="text-sm text-gray-300">Autores lidos</span>
                   </div>
@@ -128,7 +128,7 @@ export default async function Profile({
                   <Bookmark className="h-8 w-8 text-green-100" />
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-200">
-                      {profile?.totalPagesRead}
+                      {profile?.mostReadGenre}
                     </span>
                     <span className="text-sm text-gray-300">
                       Categoria mais lida

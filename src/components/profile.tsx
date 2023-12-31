@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import { Avatar } from './avatar'
 import { compareDate } from '@/utils/compareDate'
 

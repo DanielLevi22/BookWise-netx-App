@@ -3,13 +3,23 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { LogOut, X } from 'lucide-react'
 import { ButtonsSignin } from './ButtonSignin'
 
-export function SignInModal() {
+interface signInModalProps {
+  ButtonName: string
+}
+
+export function SignInModal({ ButtonName }: signInModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="flex items-center gap-3">
-          Fazer login
-          <LogOut className="h-5 w-5 text-green-100" />
+        <button>
+          {ButtonName === 'Avaliar' && (
+            <span className="text-sm text-purple-100">Avaliar</span>
+          )}
+          {ButtonName !== 'Avaliar' && (
+            <span className="flex items-center gap-3">
+              Fazer Login <LogOut className="h-5 w-5 text-green-100" />
+            </span>
+          )}
         </button>
       </Dialog.Trigger>
 

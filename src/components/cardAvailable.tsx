@@ -20,7 +20,7 @@ export function CardAvailable({
   const totalRating = starInRating(rate)
   const date = compareDate(createdAt)
   return (
-    <div className="rounded-lg bg-gray-700 p-6">
+    <div className="mb-3 rounded-lg bg-gray-700 p-6">
       <div className="flex items-center justify-between ">
         <div className="flex items-start gap-4">
           <Avatar url={imgUrl} />

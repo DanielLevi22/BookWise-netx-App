@@ -21,7 +21,7 @@ export async function Logout() {
         </div>
       ) : (
         <>
-          <SignInModal />
+          <SignInModal ButtonName="Fazer login" />
         </>
       )}
     </div>
