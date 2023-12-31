@@ -54,6 +54,7 @@ export default async function Books({
       <div className=" mt-12 grid auto-rows-[184px] grid-cols-3 gap-5">
         {books?.map((item) => (
           <AvailableBook
+            id={item.id}
             key={item.id}
             author={item.author}
             cover_url={item.cover_url}
