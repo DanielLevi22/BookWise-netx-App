@@ -2,6 +2,8 @@ import React from 'react'
 import { CardBook } from './cardbook'
 import { Book } from '@/@type/book'
 import { api } from '@/app/lib/api'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 async function getBooksPopular(): Promise<Book[]> {
   const response = await api('/books-Popular', {
     cache: 'no-cache',
@@ -19,7 +21,12 @@ export async function Article() {
     <article className="w-[324px]">
       <div className="flex items-center justify-between">
         <span className="text-gray-100">Livros populares</span>
-        <button className="text-purple-100">Ver todos</button>
+        <Link href="/books">
+          <button className="flex items-center gap-3 text-purple-100">
+            Ver todos
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </Link>
       </div>
       <div className="mt-4 space-y-3">
         {thefourmostpopularbooks.map((item) => {

@@ -32,8 +32,8 @@ export function CardBook({
             : 'max-h-[152px]  max-w-[108px]'
         } `}
       />
-      <div className="flex flex-col">
-        <h1 className="text-gray-100">{name}</h1>
+      <div className="flex flex-col items-start">
+        <h1 className="text-left text-gray-100">{name}</h1>
         <span className="mt-1 block text-gray-400">{author}</span>
         <div className="mt-auto flex items-center">
           {totalRating.map((item, index) => {

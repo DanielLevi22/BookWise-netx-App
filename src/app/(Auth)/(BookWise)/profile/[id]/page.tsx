@@ -5,6 +5,7 @@ import { buildNextAuthOptions } from '@/app/api/auth/[...nextauth]/options'
 import { searchProfile } from '@/@type/searchprofile'
 import { Avatar } from '@/components/avatar'
 import { Search } from '@/components/search'
+import { compareDate } from '@/utils/compareDate'
 
 async function getProfile(id: string, q?: string): Promise<searchProfile> {
   const isQuery = q ? '?q=' + q.toLowerCase() : ''
@@ -92,7 +93,9 @@ export default async function Profile({
               >
                 {profile?.user.name}
               </span>
-              <span className=" text-gray-400">{profile?.user.created_at}</span>
+              <span className=" text-gray-400">
+                {compareDate(profile?.user.created_at)}
+              </span>
               <span className="mt-10 h-1 w-8 bg-gradient-horizontal" />
               <div className="space-y-10">
                 <div className="mt-12 flex gap-5">

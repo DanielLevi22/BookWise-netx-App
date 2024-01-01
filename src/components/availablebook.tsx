@@ -34,7 +34,6 @@ export function AvailableBook({
     )
     setAvailable(response.data)
   }
-  console.log(status)
 
   function openCreatedForm() {
     if (status === 'authenticated') {
@@ -119,7 +118,14 @@ export function AvailableBook({
               </button>
             )}
           </div>
-          {status === 'authenticated' && isOpen && <CreateAvailable />}
+          {status === 'authenticated' && isOpen && (
+            <CreateAvailable
+              onOpenModal={setIsOpen}
+              bookId={id}
+              userId={session.user.id}
+              username={session.user.name}
+            />
+          )}
           {available?.ratings.map((item) => (
             <CardAvailable
               key={item.userId}
