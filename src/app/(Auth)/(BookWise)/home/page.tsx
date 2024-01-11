@@ -15,6 +15,9 @@ async function getRecentAvaliables(): Promise<recentAvaliable[]> {
 }
 export default async function Home() {
   const recent = await getRecentAvaliables()
+  const recentOrdenate = recent.sort(
+    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt),
+  )
 
   return (
     <main>
@@ -29,7 +32,7 @@ export default async function Home() {
             <div className="">
               <span className="text-gray-100">Avaliações mais recentes</span>
               <div className="mt-4 space-y-3">
-                {recent?.map((item, index) => (
+                {recentOrdenate?.map((item, index) => (
                   <Card
                     key={index.toString()}
                     userId={item.userId}

@@ -1,8 +1,8 @@
 import { prisma } from '@/app/lib/prisma/prisma'
-import { books } from './constants/books'
-import { categories } from './constants/categories'
-import { ratings } from './constants/ratings'
-import { users } from './constants/users'
+import { books } from './migrations/constants/books'
+import { categories } from './migrations/constants/categories'
+import { ratings } from './migrations/constants/ratings'
+import { users } from './migrations/constants/users'
 
 async function main() {
   await prisma.rating.deleteMany()

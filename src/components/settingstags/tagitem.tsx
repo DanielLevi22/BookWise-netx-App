@@ -10,7 +10,7 @@ export function TagItem({ isSelected = false, title, value }: TabItemProps) {
   return (
     <Tabs.Trigger
       value={value}
-      className=" relative  text-base font-normal outline-none dark:text-purple-100 dark:hover:text-violet-200 dark:data-[state=active]:text-violet-300"
+      className=" relative  text-base font-normal text-purple-100 outline-none data-[state=active]:text-violet-300 hover:text-violet-200"
     >
       <span
         className={`whitespace-nowrap  rounded-full border border-purple-100 px-4 py-1 ${

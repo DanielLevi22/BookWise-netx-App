@@ -1,6 +1,7 @@
 import { prisma } from '@/app/lib/prisma/prisma'
 import { NextRequest } from 'next/server'
 import { z } from 'zod'
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } },
@@ -19,7 +20,6 @@ export async function GET(
   let mostReadGenreName = ''
   let totalPagesRead = 0
   let totalAuthorsRead = 0
-
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -30,7 +30,8 @@ export async function GET(
       avatar_url: true,
       created_at: true,
       ratings: {
-        include: {
+        select: {
+          created_at: true, // Seleciona a data de avaliação (created_at do objeto rating)
           book: {
             select: {
               id: true,
@@ -38,7 +39,7 @@ export async function GET(
               author: true,
               cover_url: true,
               total_pages: true,
-              created_at: true,
+              created_at: true, // Isso é opcional, se você precisar da data de criação do livro
               summary: true,
               categories: {
                 select: {
@@ -52,12 +53,18 @@ export async function GET(
             },
           },
         },
+        orderBy: {
+          created_at: 'desc', // Ordena as avaliações pela data de criação, da mais nova para a mais antiga
+        },
       },
     },
   })
 
-  // Obtém a lista de livros avaliados pelo usuário
-  const ratedBooks = user?.ratings.map((rating) => rating.book) || []
+  const ratedBooks =
+    user?.ratings.map((rating) => ({
+      ...rating.book,
+      created_at: rating.created_at, // Adiciona a data de avaliação ao livro
+    })) || []
 
   // Filtra os livros avaliados pelo usuário de acordo com a pesquisa
   const filteredBooks = query

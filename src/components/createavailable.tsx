@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 const FormSchema = z.object({
   description: z.string().nonempty({
     message: 'O campo não pode estar vazio. Deixe o seu comentário.',
@@ -30,6 +31,7 @@ export function CreateAvailable({
 }: createAvailable) {
   const [initalAvailable, setInitalAvailable] = useState(0)
 
+  const route = useRouter()
   const {
     register,
     handleSubmit,
@@ -60,6 +62,7 @@ export function CreateAvailable({
       }
 
       onOpenModal(false)
+      route.push('/home')
     }
   }
   return (

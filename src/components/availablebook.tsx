@@ -40,6 +40,10 @@ export function AvailableBook({
       setIsOpen(!isOpen)
     }
   }
+  const availablesOrdenateRecent = available?.ratings.sort(
+    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt),
+  )
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -126,7 +130,7 @@ export function AvailableBook({
               username={session.user.name}
             />
           )}
-          {available?.ratings.map((item) => (
+          {availablesOrdenateRecent?.map((item) => (
             <CardAvailable
               key={item.userId}
               comment={item.description}
