@@ -1,4 +1,4 @@
-import { CardBook } from './cardbook'
+import { CardBook } from './CardBook'
 import { compareDate } from '@/utils/compareDate'
 
 interface cardProfile {

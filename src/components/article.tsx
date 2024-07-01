@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardBook } from './cardbook'
+import { CardBook } from './CardBook'
 import { Book } from '@/@type/book'
 import { api } from '@/app/lib/api'
 import { ArrowRight } from 'lucide-react'

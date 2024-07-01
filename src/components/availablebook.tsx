@@ -1,7 +1,7 @@
 'use client'
 import * as Dialog from '@radix-ui/react-dialog'
 import { BookOpen, Bookmark, X } from 'lucide-react'
-import { CardBook } from './cardbook'
+import { CardBook } from './CardBook'
 import { AvailablesBooks } from '@/@type/availablebook'
 import axios from 'axios'
 import { useState } from 'react'
